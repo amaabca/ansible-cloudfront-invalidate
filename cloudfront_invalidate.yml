@@ -2,13 +2,13 @@
   hosts: localhost
   connection: local
   gather_facts: False
-
+  vars_files:
+    - vars.yml
   tasks:
-    - name: "Make an example invalidation request for two paths"
+    - name: "Invalidate all"
       cloudfront_invalidate:
-        profile_name: "YOUR AWS PROFILE NAME"
-        distribution_id: "YOUR CLOUDFRONT DIST ID"
+        profile_name: "default"
+        distribution_id: "{{ cloudfront_distribution_id }}"
         path: "{{ item }}"
       with_items:
-        - "/js/*"
-        - "example.gif"
+        - "/*"
